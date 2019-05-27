@@ -32,57 +32,6 @@ WebPage.prototype.close = async function () {
   return Promise.reject('Error closing browser.');
 };
 
-WebPage.prototype.getElemsBySelector = function (selector) {
-  validateSelector(selector);
-
-  return this.page.evaluate(selector => {
-    const elems = Array.from(document.querySelectorAll(selector));
-
-    return elems.map(elem => elem.outerHTML);
-  }, selector);
-};
-
-WebPage.prototype.getHandlesBySelector = async function (config={}) {
-  const { handles, selector } = config;
-  let targetHandles;
-
-  if (handles && selector) {
-    targetHandles = [];
-
-    for (const handle of handles) {
-      if (await handle.$(selector))
-        targetHandles.push(handle);
-    }
-  }
-
-  return Promise.resolve(targetHandles);
-};
-
-WebPage.prototype.getInnerTextFromElems = function (selector) {
-  return this.page.evaluate(selector => {
-    const elems = Array.from(document.querySelectorAll(selector));
-
-    validateArray(elems);
-
-    return elems.length
-      ? elems.map(elem => elem.innerText)
-      : null;
-  }, selector);
-};
-
-WebPage.prototype.getSelectorValueFromHandle = async function (config={}) {
-  const { handle, selector } = config;
-  const selectorHandle = (handle && selector) && await handle.$(selector);
-  let selectorValue;
-
-  if (selectorHandle) {
-    selectorValue = await this.page.evaluate(elem => elem.innerHTML, selectorHandle);
-    await selectorHandle.dispose();
-  }
-
-  return Promise.resolve(selectorValue);
-};
-
 WebPage.prototype.open = async function () {
   const opts = {
     defaultViewport: {
@@ -92,12 +41,14 @@ WebPage.prototype.open = async function () {
   };
 
   try {
-    const browser = await require('puppeteer').launch(opts);
-    const page = await browser.newPage();
+    this.browser = await require('puppeteer').launch(opts);
+    this.page = await this.browser.newPage();
   
-    this.browser = browser;
-    this.page = page;
-  
+    this.page.on('console', msg => {
+      if (msg.type() === 'log')
+        console.log(msg.text())
+    })
+
     await this.page.goto(this.initialUrl);
   
     return Promise.resolve();
