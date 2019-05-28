@@ -1,5 +1,4 @@
-const BASE_URL = 'https://dashboard.m1finance.com';
-const { selectors } = require('./M1.constants');
+const { selectors } = require('./M1.selectors');
 
 exports.mappings = ((selectors) => {
   const {
@@ -8,6 +7,7 @@ exports.mappings = ((selectors) => {
       SECURITY_EXPENSE_RATIO_SELECTOR,
       SECURITY_NAME_SELECTOR,
       SECURITY_PERF_3YR_SELECTOR,
+      SECURITY_PERF_3YR_POS_SELECTOR,
       SECURITY_SYMBOL_SELECTOR
     }
   } = selectors;
@@ -23,7 +23,11 @@ exports.mappings = ((selectors) => {
   }
 })(selectors);
 
-exports.urls = {
-  initial: `${BASE_URL}/login`,
-  researchFunds: `${BASE_URL}/d/research/funds`
-};
+exports.urls = (() => {
+  const BASE_URL = 'https://dashboard.m1finance.com';
+
+  return {
+    INITIAL: `${BASE_URL}/login`,
+    RESEARCH_FUNDS: `${BASE_URL}/d/research/funds`
+  }
+})();
