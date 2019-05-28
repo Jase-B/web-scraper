@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/Jase-B/web-scraper#readme",
   "dependencies": {
-    "puppeteer": "^1.16.0"
+    "fast-csv": "^2.5.0",
+    "puppeteer": "^1.17.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
