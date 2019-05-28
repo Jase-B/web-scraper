@@ -24,7 +24,7 @@ WebPage.prototype.clickAndWaitForNav = function (opts={}) {
 WebPage.prototype.close = async function () {
   if (this.browser && this.browser.close instanceof Function) {
     await this.browser.close();
-    console.log('\nBROWSER_CLOSED');
+    console.log('BROWSER_CLOSED\n');
 
     return Promise.resolve();
   }
@@ -39,6 +39,8 @@ WebPage.prototype.open = async function () {
       width: 1280
     }
   };
+
+  console.log('OPENING_INITIAL_BROWSER_PAGE\n');
 
   try {
     this.browser = await require('puppeteer').launch(opts);
