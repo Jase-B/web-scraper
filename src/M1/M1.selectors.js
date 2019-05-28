@@ -12,7 +12,7 @@ exports.selectors = {
     SECURITY_EXPENSE_RATIO_SELECTOR: 'td:nth-of-type(5) [class*=label] > span',
     SECURITY_NAME_SELECTOR: 'td:nth-of-type(1) [class*=size_small]',
     SECURITY_PERF_3YR_SELECTOR: 'td:nth-of-type(4) > [class*=performanceCell] > div > span > span > span:nth-of-type(2)',
-    // perf3yrPos: 'td:nth-of-type(4) > [class*=performanceCell] [class*=positive] > span:nth-of-type(2)',
+    SECURITY_PERF_3YR_POS_SELECTOR: 'td:nth-of-type(4) > [class*=performanceCell] [class*=positive] > span:nth-of-type(2)',
     // perf5yr: 'td:nth-of-type(4) > [class*=performanceCell] [class*=positive] > span:nth-of-type(3)',
     SECURITY_SYMBOL_SELECTOR: 'td:nth-of-type(1) [class*=size_caption]'
   },
