@@ -3,12 +3,12 @@
   const m1 = new M1();
 
   try {
-    await m1.open();
-    await m1.logIn();
+    await m1.initPage();
+    await m1.login();
     await m1.harvestFundsData();
   } catch (err) {
     console.log(err);
   } finally {
-    await m1.close();
+    await m1.closePage();
   }
 })();
