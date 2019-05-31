@@ -2,13 +2,11 @@ const fastCsv = require('fast-csv');
 const {
   RESEARCH_RESULTS_SET_LIMIT,
   cssSelectors,
-  mappings,
-  urls
+  mappings
 } = require('../config');
 
 const harvestFundsData = async function () {
   console.log('HARVEST_FUNDS_DATA_START\n');
-  await this.page.goto(urls.RESEARCH_FUNDS);
   await sortResultsByDivYieldAndPerf.call(this);
   await scrapeResultsAndWriteToCSV.call(this);
   console.log('HARVEST_FUNDS_DATA_END\n');
