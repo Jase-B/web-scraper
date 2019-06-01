@@ -5,25 +5,19 @@ const {
   mappings
 } = require('../config');
 
-const harvestFundsData = async function () {
-  console.log('HARVEST_FUNDS_DATA_START\n');
-  await scrapeResultsAndWriteToCSV.call(this);
-  console.log('HARVEST_FUNDS_DATA_END\n');
-
-  return Promise.resolve();
-};
-
-const scrapeResultsAndWriteToCSV = async function () {
+const extractSecurityResults = async function () {
   const map = new Map(mappings.securityResultsMapping);
   const headers = Array.from(map.values()).map(obj => obj.columnHeader);
   const csvStream = fastCsv.createWriteStream({ headers, quoteHeaders: true });
   const outputPath = './dist/m1_securities.csv';
   const writeStream = require('fs').createWriteStream(outputPath, {flags: 'as'});
   
+  console.log('DATA_EXTRACTION_START\n');
   csvStream.pipe(writeStream);
   csvStream.write(headers)
   await writeResultsToStreamForEachResultSet.call(this, csvStream);
   csvStream.end();
+  console.log('DATA_EXTRACTION_END\n');
 
   return Promise.resolve();
 };
@@ -76,4 +70,4 @@ const getSecuritiesByPerf3Yr = async function () {
   }, RESEARCH_RESULTS__TABLE_ROW, securityResultsMapping);
 };
 
-module.exports = harvestFundsData;
+module.exports = extractSecurityResults;
