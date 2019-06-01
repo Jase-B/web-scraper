@@ -6,7 +6,8 @@
   try {
     await m1.initPage();
     await m1.login();
-    await m1.routeTo(urls.RESEARCH_FUNDS)
+    await m1.routeTo(urls.RESEARCH_FUNDS);
+    await m1.sortSecurityResults();
     await m1.harvestFundsData();
   } catch (err) {
     console.log(err);
