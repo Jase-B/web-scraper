@@ -7,7 +7,6 @@ function M1 () {
 }
 
 M1.prototype = Object.create(WebPage.prototype);
-M1.prototype.harvestFundsData = protos.harvestFundsData;
-M1.prototype.login = protos.login;
+Object.keys(protos).forEach(prop => M1.prototype[prop] = protos[prop]);
 
 module.exports = M1;
