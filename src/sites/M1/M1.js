@@ -1,4 +1,4 @@
-const WebPage = require('../WebPage');
+const WebPage = require('../../WebPage');
 const { urls } = require('./config');
 const protos = require('./__proto__');
 

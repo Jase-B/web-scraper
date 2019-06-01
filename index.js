@@ -1,7 +1,7 @@
 (async () => {
-  const M1 = require('./src/M1');
+  const M1 = require('./src/sites/M1');
+  const { urls } = require('./src/sites/M1/config');
   const m1 = new M1();
-  const { urls } = require('./src/M1/config');
 
   try {
     await m1.initPage();
