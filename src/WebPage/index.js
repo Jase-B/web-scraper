@@ -1,1 +1,1 @@
-module.exports = require('./WebPage');
+module.exports = require('./_WebPage');
