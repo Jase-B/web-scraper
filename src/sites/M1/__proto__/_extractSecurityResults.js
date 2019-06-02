@@ -2,11 +2,13 @@ const fastCsv = require('fast-csv');
 const {
   RESEARCH_RESULTS_SET_LIMIT,
   cssSelectors,
-  mappings
+  mappings: { 
+    securityResultsMapping
+  }
 } = require('../config');
 
 const extractSecurityResults = async function () {
-  const map = new Map(mappings.securityResultsMapping);
+  const map = new Map(securityResultsMapping);
   const headers = Array.from(map.values()).map(obj => obj.columnHeader);
   const csvStream = fastCsv.createWriteStream({ headers, quoteHeaders: true });
   const outputPath = './dist/m1_securities.csv';
@@ -14,7 +16,6 @@ const extractSecurityResults = async function () {
   
   console.log('DATA_EXTRACTION_START\n');
   csvStream.pipe(writeStream);
-  csvStream.write(headers)
   await writeResultsToStreamForEachResultSet.call(this, csvStream);
   csvStream.end();
   console.log('DATA_EXTRACTION_END\n');
@@ -45,7 +46,6 @@ const writeResultsToStreamForEachResultSet = async function (csvStream) {
 
 const getSecuritiesByPerf3Yr = async function () {
   const { RESEARCH_RESULTS__TABLE_ROW } = cssSelectors;
-  const { securityResultsMapping } = mappings;
   
   return this.page.evaluate((rowSelector, securityResultsMapping) => {
     const targetSecurities = [];
