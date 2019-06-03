@@ -1,11 +1,4 @@
-const initPage = async function () {
-  const opts = {
-    defaultViewport: {
-      height: 800,
-      width: 1280
-    }
-  };
-
+const openPage = async function (opts) {
   console.log('OPENING_INITIAL_BROWSER_PAGE\n');
 
   try {
@@ -25,4 +18,4 @@ const initPage = async function () {
   }
 };
 
-module.exports = initPage;
+module.exports = openPage;

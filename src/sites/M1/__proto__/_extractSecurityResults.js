@@ -8,8 +8,7 @@ const {
 } = require('../config');
 
 const extractSecurityResults = async function () {
-  const map = new Map(securityResultsMapping);
-  const headers = Array.from(map.values()).map(obj => obj.columnHeader);
+  const headers = getHeadersFromMap(new Map(securityResultsMapping));
   const csvStream = fastCsv.createWriteStream({ headers, quoteHeaders: true });
   const outputPath = './dist/m1_securities.csv';
   const writeStream = require('fs').createWriteStream(outputPath, {flags: 'as'});
@@ -22,6 +21,12 @@ const extractSecurityResults = async function () {
 
   return Promise.resolve();
 };
+
+const getHeadersFromMap = map => {
+  return Array
+   .from(map.values())
+   .map(obj => obj.columnHeader);
+ };
 
 const writeResultsToStreamForEachResultSet = async function (csvStream) {
   const { RESEARCH_RESULTS__NEXT_BUTTON } = cssSelectors;
