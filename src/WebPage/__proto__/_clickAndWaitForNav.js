@@ -3,8 +3,8 @@ const clickAndWaitForNav = async function (opts={}) {
 
   if (typeof selector === 'string' && selector.length) {
     return Promise.all([
-      this.page.click(selector),
-      this.page.waitForNavigation({ waitUntil: 'networkidle0' })
+      this.page.waitForNavigation({ waitUntil: 'networkidle0' }),
+      this.page.click(selector)
     ]);
   }
   
