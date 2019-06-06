@@ -1,4 +1,5 @@
 const fastCsv = require('fast-csv');
+const fs = require('fs');
 const {
   RESEARCH_RESULTS_SET_LIMIT,
   cssSelectors,
@@ -9,12 +10,13 @@ const {
 
 const extractSecurityResults = async function () {
   const headers = getHeadersFromMap(new Map(securityResultsMapping));
-  const csvStream = fastCsv.createWriteStream({ headers, quoteHeaders: true });
+  const csvStream = fastCsv.createWriteStream({ headers: true, quoteHeaders: true });
   const outputPath = './dist/m1_securities.csv';
-  const writeStream = require('fs').createWriteStream(outputPath, {flags: 'as'});
+  const writeStream = fs.createWriteStream(outputPath, { flags: 'as' });
   
   console.log('DATA_EXTRACTION_START\n');
   csvStream.pipe(writeStream);
+  csvStream.write(headers);
   await writeResultsToStreamForEachResultSet.call(this, csvStream);
   csvStream.end();
   console.log('DATA_EXTRACTION_END\n');
@@ -29,29 +31,32 @@ const getHeadersFromMap = map => {
  };
 
 const writeResultsToStreamForEachResultSet = async function (csvStream) {
-  const { RESEARCH_RESULTS__NEXT_BUTTON } = cssSelectors;
+  const { researchResults } = cssSelectors;
 
   try {
     for (let setNum = 1; setNum <= RESEARCH_RESULTS_SET_LIMIT; setNum++) {
       console.log(`PROCESSING_RESULT_SET_${setNum}_OF_${RESEARCH_RESULTS_SET_LIMIT}\n`);
       const securities = await getSecuritiesByPerf3Yr.call(this);
-      securities.forEach(security => csvStream.write(security));
+      
+      securities.forEach(security => {
+        csvStream.write(security)
+      });
   
       if (setNum < RESEARCH_RESULTS_SET_LIMIT) {
-        await this.page.click(RESEARCH_RESULTS__NEXT_BUTTON);
+        await this.page.click(researchResults.NEXT_BUTTON_SELECTOR);
         await this.page.waitFor(2000);
       }     
     }
   
     return Promise.resolve(); 
   } catch (err) {
-    return Promise.reject('Error writing results to file.'); 
+    return Promise.reject(`Error writing results to file.\n${err}`); 
   }
 };
 
 const getSecuritiesByPerf3Yr = async function () {
-  const { RESEARCH_RESULTS__TABLE_ROW } = cssSelectors;
-  
+  const { researchResults } = cssSelectors;
+
   return this.page.evaluate((rowSelector, securityResultsMapping) => {
     const targetSecurities = [];
     const getInnerTextOfElem = elem => elem ? elem.innerText : null;
@@ -72,7 +77,7 @@ const getSecuritiesByPerf3Yr = async function () {
     }
 
     return targetSecurities;
-  }, RESEARCH_RESULTS__TABLE_ROW, securityResultsMapping);
+  }, researchResults.ROW_SELECTOR, securityResultsMapping);
 };
 
 module.exports = extractSecurityResults;

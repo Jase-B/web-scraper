@@ -1,30 +1,30 @@
-const cssSelectors = require('./_cssSelectors');
+const { researchResults } = require('./_cssSelectors');
 
 const mappings = {
   securityResultsMapping: [
-    ['symbol', {
-      columnHeader: "Symbol",
-      selector: cssSelectors.SECURITY__SYMBOL
-    }],
     ['name', {
       columnHeader: "Name",
-      selector: cssSelectors.SECURITY__NAME
+      selector: researchResults.NAME__VALUE_SELECTOR
+    }],
+    ['symbol', {
+      columnHeader: "Symbol",
+      selector: researchResults.SYMBOL__VALUE_SELECTOR
     }],
     ['divYield', {
       columnHeader: "Div. Yield",
-      selector: cssSelectors.SECURITY__DIV_YIELD
-    }],
-    ['perf3yr', {
-      columnHeader: "3 Yr Performance",
-      selector: cssSelectors.SECURITY__PERF_3YR
-    }],
-    ['perf5yr', {
-      columnHeader: "5 Yr Performance",
-      selector: cssSelectors.SECURITY__PERF_5YR
+      selector: researchResults.DIV_YIELD__VALUE_SELECTOR
     }],
     ['expenseRatio', {
       columnHeader: "Expense Ratio",
-      selector: cssSelectors.SECURITY__EXPENSE_RATIO
+      selector: researchResults.EXPENSE_RATIO__VALUE_SELECTOR
+    }],
+    // ['perf3yr', {
+    //   columnHeader: "3 Yr Performance",
+    //   selector: researchResults.PERF__YR_VALUE_SELECTOR
+    // }],
+    ['perf5yr', {
+      columnHeader: "5 Yr Performance",
+      selector: researchResults.PERF__YR_VALUE_SELECTOR
     }]
   ]
 };

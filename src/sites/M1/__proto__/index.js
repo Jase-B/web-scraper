@@ -1,3 +1,4 @@
+exports.clickAndWaitForBodyClasses = require('./_clickAndWaitForBodyClasses');
 exports.extractSecurityResults = require('./_extractSecurityResults');
 exports.login = require('./_login');
-exports.sortSecurityResults = require('./_sortSecurityResults');
+exports.sortFundResults = require('./_sortFundResults');
