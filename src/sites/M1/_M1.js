@@ -6,7 +6,6 @@ function M1 () {
   WebPage.call(this, urls.INITIAL);
 }
 
-M1.prototype = Object.create(WebPage.prototype);
-Object.keys(protos).forEach(prop => M1.prototype[prop] = protos[prop]);
+WebPage.addPrototypesToObjectType(M1, protos)
 
 module.exports = M1;
