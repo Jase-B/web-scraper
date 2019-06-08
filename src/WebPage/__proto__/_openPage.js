@@ -5,19 +5,21 @@ const openPage = async function (opts) {
 
   try {
     this.browser = await puppeteer.launch(opts);
+    this.name = this.constructor.name;
     this.page = await this.browser.newPage();
   
-    this.page.on('console', msg => {
-      if (msg.type() === 'log')
-        console.log(msg.text())
-    })
-
+    this.page.on('console', logMsgText);
     await this.page.goto(this.initialUrl);
   
     return Promise.resolve();
   } catch (err) {
     return Promise.reject(`Error opening page.\n${err}`);
   }
+};
+
+const logMsgText = msg => {
+  if (msg.type() === 'log')
+    console.log(msg.text())
 };
 
 module.exports = openPage;
