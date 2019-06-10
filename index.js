@@ -17,7 +17,7 @@
     await m1.login();
     await m1.routeTo(urls.RESEARCH_FUNDS);
     await m1.sortFundResults();
-    await m1.extractSecurityResults();
+    await m1.extractFundResults();
   } catch (err) {
     console.log(err);
   } finally {
