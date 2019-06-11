@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "rimraf dist && mkdirp dist",
+    "prestart": "rimraf dist && mkdir -p dist",
     "start": "node --require dotenv/config index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,13 +20,13 @@
   "homepage": "https://github.com/Jase-B/web-scraper#readme",
   "dependencies": {
     "fast-csv": "^2.5.0",
+    "googleapis": "^40.0.0",
     "puppeteer": "^1.17.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "babel-cli": "^6.26.0",
     "dotenv": "^8.0.0",
-    "mkdirp": "^0.5.1",
     "rimraf": "^2.6.3"
   }
 }
