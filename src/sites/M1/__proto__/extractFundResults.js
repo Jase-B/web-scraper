@@ -10,7 +10,7 @@ const {
 
 const extractFundResults = async function () {
   const headers = getHeadersFromMap(new Map(securityResultsMapping));
-  const csvStream = fastCsv.createWriteStream({ headers: true, quoteHeaders: true });
+  const csvStream = fastCsv.format({ headers: true, quoteHeaders: true });
   const outputPath = './dist/m1_securities.csv';
   const writeStream = fs.createWriteStream(outputPath, { flags: 'as' });
   
