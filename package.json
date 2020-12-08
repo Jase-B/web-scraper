@@ -12,7 +12,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "babel-cli": "^6.26.0",
     "dotenv": "^8.0.0",
-    "fast-csv": "^3.0.1",
+    "fast-csv": "^4.3.6",
     "jest": "^24.8.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.3"
